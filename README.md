@@ -2,6 +2,8 @@
 
 NumPy practice for a 3D / spatial interview, aimed at lidar-to-CAD geometry.
 
+Printable one-page formula sheet (US Letter, landscape): [cheatsheet/spatial_formulas.pdf](cheatsheet/spatial_formulas.pdf).
+
 Start with [study_guide.md](study_guide.md). It covers the linear-algebra core and the survey pieces a generic 3D outline usually skips: Z-up coordinates, station and offset, cross-sections, ground grids, local shape features, and TIN queries.
 
 Then work the notebooks in order. Each problem has an attempt cell, then a solution cell that replaces your function and checks it. Collapse or scroll past the solution until you have tried. You need NumPy.
