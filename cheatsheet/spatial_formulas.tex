@@ -1,6 +1,6 @@
 \documentclass[8pt]{extarticle}
 
-\usepackage[letterpaper,landscape,margin=0.32in,top=0.28in,bottom=0.24in]{geometry}
+\usepackage[letterpaper,portrait,margin=0.45in]{geometry}
 \usepackage{amsmath,amssymb}
 \usepackage{multicol}
 \usepackage[T1]{fontenc}
@@ -15,18 +15,18 @@
 
 \pagestyle{empty}
 \setlength{\parindent}{0pt}
-\setlength{\parskip}{0.45pt}
-\setlength{\columnsep}{9pt}
-\setlength{\abovedisplayskip}{1.35pt}
-\setlength{\belowdisplayskip}{1.35pt}
+\setlength{\parskip}{0.25pt}
+\setlength{\columnsep}{10pt}
+\setlength{\abovedisplayskip}{1.05pt}
+\setlength{\belowdisplayskip}{1.05pt}
 \setlength{\abovedisplayshortskip}{1pt}
 \setlength{\belowdisplayshortskip}{1pt}
 \setlength{\jot}{1.5pt}
 \setlength{\multicolsep}{0pt}
 
 \newcommand{\sect}[1]{%
-  \par\vspace{2.0pt}%
-  {\color{navy}\hrule height 0.5pt}\par\vspace{0.9pt}%
+  \par\vspace{1.5pt}%
+  {\color{navy}\hrule height 0.5pt}\par\vspace{0.7pt}%
   {\sffamily\bfseries\color{navy}#1}\par\vspace{0.2pt}%
 }
 \newcommand{\sub}[1]{{\sffamily\bfseries\color{navy}#1}\ }
@@ -51,7 +51,8 @@
 \]
 \[
 \cos\theta=\mathrm{clip}\!\left(\frac{a\cdot b}{\|a\|\|b\|},-1,1\right)
-\quad
+\]
+\[
 \text{area}_{\triangle}=\tfrac12\|a\times b\|
 \]
 \[
@@ -73,10 +74,10 @@ Right-hand rule, radians. Unit axis $k$, skew $K$ with $Kv=k\times v$:
 \[
 K=\begin{pmatrix}0&-k_z&k_y\\ k_z&0&-k_x\\ -k_y&k_x&0\end{pmatrix}
 \]
-\[
-R=I+\sin\theta\,K+(1-\cos\theta)\,K^{2}
-=\cos\theta\,I+\sin\theta\,K+(1-\cos\theta)\,kk^{\mathsf T}
-\]
+\begin{align*}
+R&=I+\sin\theta\,K+(1-\cos\theta)\,K^{2}\\
+&=\cos\theta\,I+\sin\theta\,K+(1-\cos\theta)\,kk^{\mathsf T}
+\end{align*}
 $K^{2}=kk^{\mathsf T}-I$ for $\|k\|=1$. Do not mix the two forms.
 \[
 R_z(\theta)=\begin{pmatrix}c&-s&0\\ s&c&0\\ 0&0&1\end{pmatrix}
@@ -101,10 +102,11 @@ Quaternion $(\,w,x,y,z\,)=(\cos(\theta/2),\,\sin(\theta/2)\,k)$, then convert to
 \sect{Section frame (Z up)}
 Horizontal unit tangent $(t_x,t_y)$. Columns of $R$ are forward, left, up:
 \[
-f=(t_x,t_y,0),\;
-\ell=(-t_y,t_x,0),\;
+f=(t_x,t_y,0),\quad
+\ell=(-t_y,t_x,0),\quad
 u=(0,0,1)
-\quad
+\]
+\[
 f\times\ell=u
 \]
 Right normal, positive offset: $r=(t_y,-t_x)$. Eastbound road: south is right. $\det R=+1$.
@@ -119,11 +121,10 @@ d=|d_{\mathrm{signed}}|
 Three points: $n=(b-a)\times(c-a)$, then normalize. Angle between planes $=$ angle between normals.
 
 \sub{Line} through $a$ toward $b$:
-\[
-t=\frac{(p-a)\cdot(b-a)}{\|b-a\|^{2}},\quad
-c=a+t(b-a),\quad
-d=\|p-c\|
-\]
+\begin{align*}
+t&=\frac{(p-a)\cdot(b-a)}{\|b-a\|^{2}}\\
+c&=a+t(b-a),\qquad d=\|p-c\|
+\end{align*}
 \sub{Segment:} clip $t$ to $[0,1]$. Unclipped $t$ is the infinite line. If $a\approx b$, distance is $\|p-a\|$.
 
 \sub{Skew lines} $p_1+s\,d_1$ and $p_2+t\,d_2$:
@@ -154,14 +155,9 @@ Use \texttt{lstsq}, not $(A^{\mathsf T}A)^{-1}$. A perfect arc recovers $(c,r)$.
 \sect{Rays and triangles}
 M\"oller--Trumbore. $e_1=v_1-v_0$, $e_2=v_2-v_0$, direction need not be a unit vector:
 \begin{align*}
-h&=d\times e_2,&
-a&=e_1\cdot h,&
-f&=1/a,&
-s&=o-v_0\\
-u&=f(s\cdot h),&
-q&=s\times e_1,&
-v&=f(d\cdot q),&
-t&=f(e_2\cdot q)
+h&=d\times e_2 & a&=e_1\cdot h & f&=1/a\\
+s&=o-v_0 & u&=f(s\cdot h) & q&=s\times e_1\\
+v&=f(d\cdot q) & t&=f(e_2\cdot q)
 \end{align*}
 Hit when $t>\eps$, $u\ge 0$, $v\ge 0$, $u+v\le 1$. $|a|\approx 0$: parallel. $t$ is the scale in $o+td$.
 
