@@ -1,6 +1,6 @@
 # Spatial NumPy for a Mach9 interview
 
-Mach9 turns mobile, terrestrial, and drone lidar into civil CAD: curbs, pavement edges, barriers, poles, signs, breaklines, cross-sections, ground grids, and TIN surfaces. The interview is still a NumPy interview. They want geometry as arrays of shape `(N, 3)`, written with broadcasting instead of Python loops over points.
+Mach9 turns mobile, terrestrial, and drone lidar into civil CAD: curbs, pavement edges, barriers, poles, signs, breaklines, cross-sections, ground grids, and TIN surfaces. The geometry round is arrays of shape `(N, 3)`, written with broadcasting instead of Python loops over points. The onsite also has a system-design whiteboard, and the coding round may be the same geometry in PyTorch. That prep is in [onsite_prep.md](onsite_prep.md).
 
 The outline you already have is the right linear-algebra core: dot and cross products, rigid transforms, planes, nearest neighbors, voxels, Kabsch, a camera model. What it underweights is the survey geometry that sits on top of that core.
 
