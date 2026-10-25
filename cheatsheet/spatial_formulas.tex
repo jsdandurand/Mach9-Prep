@@ -1,0 +1,243 @@
+\documentclass[8pt]{extarticle}
+
+\usepackage[letterpaper,portrait,margin=0.45in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[scaled=0.92]{helvet}
+\usepackage{xcolor}
+\usepackage{microtype}
+
+\definecolor{navy}{HTML}{1B3A4B}
+\definecolor{rule}{HTML}{C4B49A}
+\definecolor{ink}{HTML}{1A1A1A}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.25pt}
+\setlength{\columnsep}{10pt}
+\setlength{\abovedisplayskip}{1.05pt}
+\setlength{\belowdisplayskip}{1.05pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+\setlength{\jot}{1.5pt}
+\setlength{\multicolsep}{0pt}
+
+\newcommand{\sect}[1]{%
+  \par\vspace{1.5pt}%
+  {\color{navy}\hrule height 0.5pt}\par\vspace{0.7pt}%
+  {\sffamily\bfseries\color{navy}#1}\par\vspace{0.2pt}%
+}
+\newcommand{\sub}[1]{{\sffamily\bfseries\color{navy}#1}\ }
+\newcommand{\eps}{\varepsilon}
+
+\begin{document}
+\color{ink}
+\begin{center}
+  {\sffamily\bfseries\Large\color{navy} Spatial formulas}\\[0.5pt]
+  {\sffamily\small\color{navy} rows $(N,3)$,\ \ $Z$ up,\ \ column action $p'=Rp+t$,\ \ cloud $(RP^{\mathsf T})^{\mathsf T}+t=PR^{\mathsf T}+t$}%
+\end{center}
+\vspace{-2pt}
+{\color{rule}\hrule height 0.8pt}
+
+\begin{multicols}{3}
+
+\sect{Vectors}
+\[
+\|v\|=\sqrt{v\cdot v},\quad
+\hat v=\frac{v}{\|v\|},\quad
+\operatorname{proj}_{b}a=\frac{a\cdot b}{b\cdot b}\,b
+\]
+\[
+\cos\theta=\mathrm{clip}\!\left(\frac{a\cdot b}{\|a\|\|b\|},-1,1\right)
+\]
+\[
+\text{area}_{\triangle}=\tfrac12\|a\times b\|
+\]
+\[
+a\times b=
+\begin{vmatrix}
+\mathbf i&\mathbf j&\mathbf k\\
+a_x&a_y&a_z\\
+b_x&b_y&b_z
+\end{vmatrix}
+\quad
+[a,b,c]=a\cdot(b\times c)
+\]
+2D side of directed $ab$: $(b-a)\times(p-a)=(b_x-a_x)(p_y-a_y)-(b_y-a_y)(p_x-a_x)$.
+Positive is left. Right-hand offset is the negation.
+Zero-length $v$: angle and $\hat v$ are undefined.
+
+\sect{Rotations and rigid motions}
+Right-hand rule, radians. Unit axis $k$, skew $K$ with $Kv=k\times v$:
+\[
+K=\begin{pmatrix}0&-k_z&k_y\\ k_z&0&-k_x\\ -k_y&k_x&0\end{pmatrix}
+\]
+\begin{align*}
+R&=I+\sin\theta\,K+(1-\cos\theta)\,K^{2}\\
+&=\cos\theta\,I+\sin\theta\,K+(1-\cos\theta)\,kk^{\mathsf T}
+\end{align*}
+$K^{2}=kk^{\mathsf T}-I$ for $\|k\|=1$. Do not mix the two forms.
+\[
+R_z(\theta)=\begin{pmatrix}c&-s&0\\ s&c&0\\ 0&0&1\end{pmatrix}
+\quad
+c=\cos\theta,\; s=\sin\theta
+\]
+$+90^{\circ}$ about $+Z$ sends $(1,0,0)\to(0,1,0)$.
+$+120^{\circ}$ about $(1,1,1)$ cycles $x\to y\to z$.
+
+Valid rotation: $R^{\mathsf T}R=I$ and $\det R=+1$. $\det=-1$ is a reflection.
+
+Apply first, then second, on column vectors:
+\[
+R=R_2R_1,\qquad t=R_2 t_1+t_2
+\]
+Inverse of $p'=Rp+t$:
+\[
+R^{-1}=R^{\mathsf T},\qquad t_{\mathrm{inv}}=-R^{\mathsf T}t
+\]
+Quaternion $(\,w,x,y,z\,)=(\cos(\theta/2),\,\sin(\theta/2)\,k)$, then convert to $R$. Stay with matrices unless asked.
+
+\sect{Section frame (Z up)}
+Horizontal unit tangent $(t_x,t_y)$. Columns of $R$ are forward, left, up:
+\[
+f=(t_x,t_y,0),\quad
+\ell=(-t_y,t_x,0),\quad
+u=(0,0,1)
+\]
+\[
+f\times\ell=u
+\]
+Right normal, positive offset: $r=(t_y,-t_x)$. Eastbound road: south is right. $\det R=+1$.
+
+\sect{Point, line, segment, plane}
+\sub{Plane} through $p_0$ with unit $n$: $n\cdot(x-p_0)=0$.
+\[
+d_{\mathrm{signed}}=(p-p_0)\cdot n
+\qquad
+d=|d_{\mathrm{signed}}|
+\]
+Three points: $n=(b-a)\times(c-a)$, then normalize. Angle between planes $=$ angle between normals.
+
+\sub{Line} through $a$ toward $b$:
+\begin{align*}
+t&=\frac{(p-a)\cdot(b-a)}{\|b-a\|^{2}}\\
+c&=a+t(b-a),\qquad d=\|p-c\|
+\end{align*}
+\sub{Segment:} clip $t$ to $[0,1]$. Unclipped $t$ is the infinite line. If $a\approx b$, distance is $\|p-a\|$.
+
+\sub{Skew lines} $p_1+s\,d_1$ and $p_2+t\,d_2$:
+\[
+d=\frac{|(p_2-p_1)\cdot(d_1\times d_2)|}{\|d_1\times d_2\|}
+\]
+
+\sub{Ray} $o+td$, plane $(p_0,n)$:
+\[
+t=\frac{(p_0-o)\cdot n}{d\cdot n}
+\]
+Parallel if $|d\cdot n|\approx 0$. In front of the origin: $t>0$.
+
+\sect{Fits}
+\sub{Plane, SVD.} Center $C=P-\bar p$. Normal is the last right singular vector of $C$ (least variance), $V_t[-1]$. Flip so the largest component is positive. General plane $ax+by+cz=d$. The graph $z=ax+by+c$ cannot represent a vertical curb face. One outlier tilts a least-squares fit.
+
+\sub{Line, PCA.} Direction $=$ top eigenvector of the covariance. A point on the line is the centroid.
+
+\sub{RANSAC.} Sample 3 points, skip a near-zero cross product, keep the largest inlier count, refit SVD, recompute the mask.
+
+\sub{Circle (K\r{a}sa),} plan view:
+\[
+x^{2}+y^{2}=2 c_x x+2 c_y y+c,\qquad
+r^{2}=c+c_x^{2}+c_y^{2}
+\]
+Use \texttt{lstsq}, not $(A^{\mathsf T}A)^{-1}$. A perfect arc recovers $(c,r)$. The centroid of a one-sided arc sits on the visible side, and $\sim$1\,cm of noise on a short arc moves the fit.
+
+\sect{Rays and triangles}
+M\"oller--Trumbore. $e_1=v_1-v_0$, $e_2=v_2-v_0$, direction need not be a unit vector:
+\begin{align*}
+h&=d\times e_2 & a&=e_1\cdot h & f&=1/a\\
+s&=o-v_0 & u&=f(s\cdot h) & q&=s\times e_1\\
+v&=f(d\cdot q) & t&=f(e_2\cdot q)
+\end{align*}
+Hit when $t>\eps$, $u\ge 0$, $v\ge 0$, $u+v\le 1$. $|a|\approx 0$: parallel. $t$ is the scale in $o+td$.
+
+\sect{Boxes}
+AABB, per axis: $\ell=\max(0,\;\min(a_{\max},b_{\max})-\max(a_{\min},b_{\min}))$.
+\[
+\mathrm{IoU}=\frac{\prod \ell_i}{\mathrm{vol}\,A+\mathrm{vol}\,B-\prod \ell_i}
+\]
+A shared face has volume 0.
+
+OBB: columns of $R$ are the box axes in world coordinates. Local of a row point is $(p-c)\,R$, i.e.\ $R^{\mathsf T}(p-c)$. Inside when every $|local_i|\le h_i$.
+
+\sect{Barycentric $Z$ (TIN)}
+Query $p$ against triangle $a,b,c$ in XY. $v_0=b-a$, $v_1=c-a$, $v_2=p-a$, $d_{ij}=v_i\cdot v_j$.
+\begin{align*}
+D&=d_{00}d_{11}-d_{01}^{2}\\
+v&=(d_{11}d_{20}-d_{01}d_{21})/D\\
+w&=(d_{00}d_{21}-d_{01}d_{20})/D\\
+u&=1-v-w
+\end{align*}
+Inside, boundary included, when $u,v,w\ge 0$ and $D\not\approx 0$. Then $z=u z_a+v z_b+w z_c$. First hit wins; a shared edge of a continuous mesh agrees. A breakline constrains the mesh, not the query. Drop a face with any edge over the length cap.
+
+\sect{Kabsch and one ICP step}
+$P$ and $Q$ correspond, same order. $H=P_c^{\mathsf T}Q_c$ is $3\times 3$.
+\[
+H=U\Sigma V^{\mathsf T},\quad
+R=VU^{\mathsf T}
+\]
+If $\det R<0$, flip the last row of $V^{\mathsf T}$ (smallest singular vector) and rebuild $R$.
+\[
+t=\bar q-R\bar p
+\qquad
+Q\approx (RP^{\mathsf T})^{\mathsf T}+t
+\]
+One ICP step: nearest neighbor source$\to$target, then Kabsch. True matches only if the motion is small relative to point spacing.
+
+\sect{Camera ($+Z$ forward)}
+$p_c=Rp_w+t$. Intrinsics $K$. Pixel $(u,v)$ from $q=Kp_c$, then $u,v=q_{0,1}/q_2$.
+Keep $z>0$ and $0\le u<W$, $0\le v<H$. Image shape is $(H,W)$; $u$ is the column.
+Back-project depth stored as camera $z$:
+\[
+\begin{pmatrix}x\\y\\z\end{pmatrix}
+=z\,K^{-1}\begin{pmatrix}u\\v\\1\end{pmatrix}
+\]
+Do not divide by $z\le 0$.
+
+\sect{Polylines, station, section}
+Station is horizontal XY chainage. $Z$ does not advance it. Clipped $t$ on segment $i$ gives station $s_i+tL_i\in[0,L]$.
+\[
+\mathrm{offset}=(p-c)\cdot(t_y,-t_x)
+\]
+Positive is right of increasing station. Ties take the lowest segment index. Past an end, station clamps; offset is the lateral part of $(p-\mathrm{endpoint})$, not $\|p-c\|$.
+
+Vertical section at an alignment origin:
+\[
+\mathrm{along}=(\mathrm{xy}-o)\cdot\hat t,\qquad
+\mathrm{offset}=(\mathrm{xy}-o)\cdot r
+\]
+Keep $|\mathrm{along}|\le$ thickness and $|\mathrm{offset}|\le$ half-width. Elevation is absolute $Z$. Interior vertex: outgoing tangent. Final vertex: incoming tangent.
+
+Even--odd polygon test, ray $+x$: count an edge when exactly one end is strictly above the point and the crossing is to the right. Skip $dy=0$. The boundary is unstable.
+Douglas--Peucker: keep endpoints; keep an interior vertex whose distance to the span exceeds $\eps$.
+Segments properly cross when each pair of endpoints is strictly on opposite sides of the other line. A shared vertex is not a crossing.
+
+\sect{Clouds and local shape}
+Neighbors: $\|A_{:,\mathrm{none},:}-B_{\mathrm{none},:,:}\|$ is $(N,M)$. $N=M=10^{4}$ is $\sim$800\,MB. Chunk, or use a KD-tree.
+Chamfer here: $\mathrm{mean}_A\min_B+\mathrm{mean}_B\min_A$.
+
+Voxel key $\lfloor p/s\rfloor$. $\lfloor-0.1\rfloor=-1$, but a cast toward zero gives $0$. Centroid $=$ bin sum $/$ count. \texttt{np.add.at} accumulates repeats; \texttt{sums[idx] +=} does not. Min-$Z$ grid: same half-open bins, row 0 at minimum $Y$, \texttt{np.minimum.at}.
+
+Covariance $(X^{\mathsf T}X)/N$. \texttt{eigh} returns $\lambda$ ascending; reorder $\lambda_1\ge\lambda_2\ge\lambda_3$.
+\[
+L=\frac{\lambda_1-\lambda_2}{\lambda_1},\quad
+P=\frac{\lambda_2-\lambda_3}{\lambda_1},\quad
+S=\frac{\lambda_3}{\lambda_1}
+\]
+Direction $=$ largest eigenvector, normal $=$ smallest. Signs are arbitrary. Pole: high $L$, $|\mathrm{dir}\cdot up|\approx 1$. Ground: high $P$, $|n\cdot up|\approx 1$. Curb face: high $P$, $|n\cdot up|\approx 0$. If $\lambda_1\approx 0$, return zeros.
+
+\sect{Before you write}
+State $(N,3)$ or $(3,N)$. Clip $\cos$ before $\arccos$. Guard every denominator. $t<0$ is behind the ray origin. $\det R=-1$ is a reflection. SVD and eigenvector signs flip. A centimetre tolerance is not $10^{-8}$.
+
+\end{multicols}
+\end{document}
