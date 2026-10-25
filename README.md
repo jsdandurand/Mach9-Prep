@@ -17,7 +17,7 @@ Then work the notebooks in order. Each problem has an attempt cell, then a solut
 
 If time is short: all of notebook 01, nearest neighbors, voxel downsample, plane fit, point-to-segment, station and offset, cross-section, min-Z grid, shape features, TIN interpolation, and Kabsch.
 
-The onsite is a different mix: a whiteboard to design an ML system, a round on using AI to solve a problem, behavioral interviews, and coding in Python that may be PyTorch. Read [onsite_prep.md](onsite_prep.md) for that round. It teaches the scan, the drawing (station, curb, breakline, TIN), PointNet, and inference on a cloud that does not fit in memory, then the whiteboard script. The formula sheet stays the geometry reference.
+The onsite is a different mix: a whiteboard to design an ML system, a round on using AI to solve a problem, behavioral interviews, and coding in Python that may be PyTorch. Read [onsite_prep.md](onsite_prep.md) for that round. It teaches the scan, the drawing (station, curb, breakline, TIN), PointNet, and inference on a cloud that does not fit in memory, then the whiteboard script. [adjacent_designs.md](adjacent_designs.md) is the neighboring whiteboards: holding a 5 cm error budget, interactive suggestions, multi-feature segmentation, MUTCD sign codes with retrieval, and distributed training. The formula sheet stays the geometry reference.
 
 The PyTorch notebooks are the same problems as above, then a short training loop. You need PyTorch. Geometry in these notebooks is float64.
 
